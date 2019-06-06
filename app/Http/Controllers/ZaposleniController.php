@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Zaposleni;
-use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Input;
 
@@ -30,7 +29,7 @@ class ZaposleniController extends Controller
             ->paginate(5);
             }
             $stampaj = Input::get('stampaj');
-            return view('zaposlenis.index',compact('knjigas', 'stampaj'))
+            return view('zaposleni.index',compact('zaposlenis', 'stampaj'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -64,7 +63,7 @@ class ZaposleniController extends Controller
     public function show($id)
     {
         $zaposleni = Zaposleni::find($id);
-        return view('zaposlenis.show', compact('zaposleni'));
+        return view('zaposleni.show', compact('zaposleni'));
     }
 
     /**
