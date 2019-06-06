@@ -1,3 +1,4 @@
 @extends('layout')
 @section('content')
-INDEX
+<h1>INDEX</h1>
+@endsection

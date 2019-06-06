@@ -12,3 +12,7 @@
 */
 
 Route::resource('zaposlenis','ZaposleniController');
+
+Route::get('/', function () {
+    return view('layout');
+});
