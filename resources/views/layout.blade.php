@@ -32,10 +32,6 @@
                     <a class="nav-link" href="{{ route('naplate.index') }}">Naplate</a>
                           </li>
                   </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Pretraga">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pretraga</button>
-                  </form>
                 </div>
               </nav>
  @yield('content')
