@@ -11,7 +11,9 @@
 |
 */
 
-Route::resource('zaposlenis','ZaposleniController');
+Route::resource('zaposleni','ZaposleniController');
+Route::resource('usluge', 'UslugeController');
+Route::resource('naplate', 'NaplateController');
 
 Route::get('/', function () {
     return view('layout');

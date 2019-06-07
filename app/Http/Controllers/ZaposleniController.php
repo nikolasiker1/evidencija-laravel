@@ -19,17 +19,17 @@ class ZaposleniController extends Controller
     {
         $search = $request->get('search');
         if ($search == '') {
-            $zaposlenis = DB::table('zaposlenis')
-            ->select('zaposlenis.*')
+            $zaposleni = DB::table('zaposleni')
+            ->select('zaposleni.*')
             ->paginate(5);
             } else {
-            $zaposlenis = DB::table('zaposlenis')
-            ->select('zaposlenis.*')
-            ->where('zaposlenis.ime', 'like', '%'.$search.'%')
+            $zaposleni = DB::table('zaposleni')
+            ->select('zaposleni.*')
+            ->where('zaposleni.ime', 'like', '%'.$search.'%')
             ->paginate(5);
             }
             $stampaj = Input::get('stampaj');
-            return view('zaposleni.index',compact('zaposlenis', 'stampaj'))
+            return view('zaposleni.index',compact('zaposleni', 'stampaj'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
