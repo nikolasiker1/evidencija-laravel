@@ -16,5 +16,5 @@ Route::resource('usluge', 'UslugeController');
 Route::resource('naplate', 'NaplateController');
 
 Route::get('/', function () {
-    return view('layout');
+    return view('home');
 });
