@@ -32,7 +32,7 @@ class NaplateController extends Controller
      */
     public function create()
     {
-        //
+        return view('naplate.create');
     }
 
     /**

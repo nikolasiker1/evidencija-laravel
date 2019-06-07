@@ -15,6 +15,8 @@ Route::resource('zaposleni','ZaposleniController');
 Route::resource('usluge', 'UslugeController');
 Route::resource('naplate', 'NaplateController');
 
+
+
 Route::get('/', function () {
     return view('home');
 });

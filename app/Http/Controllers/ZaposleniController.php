@@ -40,7 +40,7 @@ class ZaposleniController extends Controller
      */
     public function create()
     {
-        //
+        return view('zaposleni.create');
     }
 
     /**

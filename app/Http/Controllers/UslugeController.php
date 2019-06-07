@@ -32,7 +32,7 @@ class UslugeController extends Controller
      */
     public function create()
     {
-        //
+        return view('usluge.create');
     }
 
     /**
