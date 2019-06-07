@@ -29,21 +29,48 @@
               <td>Mark</td>
               <td>Otto</td>
               <td></td>
-              <td></td>
+              <td class="containter-fluid d-flex justify-content-center">
+                    <div class="row d-flex justify-content-center w-100 m-0 no-gutters" style="max-width:300px">
+                      <div class="col text-center" style="color:white">
+                          <a class="btn btn-success">Izmeni</a>
+                      </div>
+                      <div class="col text-center" style="color:white">
+                          <a class="btn btn-danger">Obriši</a>
+                      </div>
+                    </div>
+                </td>
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Jacob</td>
               <td>Thornton</td>
               <td></td>
-              <td></td>
+              <td class="containter-fluid d-flex justify-content-center">
+                    <div class="row d-flex justify-content-center w-100 m-0 no-gutters" style="max-width:300px">
+                      <div class="col text-center" style="color:white">
+                          <a class="btn btn-success">Izmeni</a>
+                      </div>
+                      <div class="col text-center" style="color:white">
+                          <a class="btn btn-danger">Obriši</a>
+                      </div>
+                    </div>
+                </td>
             </tr>
             <tr>
               <th scope="row">3</th>
               <td>Larry</td>
               <td>the Bird</td>
               <td></td>
-              <td></td>
+              <td class="containter-fluid d-flex justify-content-center">
+                    <div class="row d-flex justify-content-center w-100 m-0 no-gutters" style="max-width:300px">
+                      <div class="col text-center" style="color:white">
+                          <a class="btn btn-success">Izmeni</a>
+                      </div>
+                      <div class="col text-center" style="color:white">
+                          <a class="btn btn-danger">Obriši</a>
+                      </div>
+                    </div>
+                </td>
             </tr>
           </tbody>
     </table>
