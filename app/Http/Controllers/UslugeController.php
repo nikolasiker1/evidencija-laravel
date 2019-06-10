@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Usluge;
+use App\Usluga;
 use DB;
 use Illuminate\Support\Facades\Input;
 
@@ -43,7 +43,23 @@ class UslugeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        request()->validate([
+        'tip' => 'required',
+        'cena' => 'required',
+        'trajanje' => 'required'
+        ]);
+        try {
+            Usluga::create($request->all());
+        DB::commit();
+            return redirect()->route('usluge.index')
+            ->with('success','Usluga je uspesno sacuvana.');
+        } catch (Exception $e) {
+        DB::rollback();
+            return redirect()->route('usluge.index')
+            ->with('error','Usluga nije sacuvana.');
+        }
+
     }
 
     /**
@@ -89,6 +105,18 @@ class UslugeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            Usluga::find($id)->delete();
+            DB::commit();
+            return redirect()->route('usluge.index')
+                ->with('success', 'Usluga je uspesno
+            obrisana.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('usluge.index')
+                ->with('error', 'Usluga nije uspesno
+            obrisana.');
+        }
     }
 }

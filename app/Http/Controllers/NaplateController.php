@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Naplate;
+use App\Zaposleni;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
 
 class NaplateController extends Controller
 {
@@ -21,7 +23,7 @@ class NaplateController extends Controller
             ->paginate(5);
 
         $stampaj = Input::get('stampaj');
-        return view('naplate.index',compact('naplatas', 'stampaj'))
+        return view('naplate.index', compact('naplatas', 'stampaj'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -32,7 +34,9 @@ class NaplateController extends Controller
      */
     public function create()
     {
-        return view('naplate.create');
+        $zaposlenis = Zaposleni::pluck('ime');
+
+        return view('naplate.create', compact('zaposlenis'));
     }
 
     /**
@@ -89,6 +93,18 @@ class NaplateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            Usluga::find($id)->delete();
+            DB::commit();
+            return redirect()->route('naplate.index')
+                ->with('success', 'Naplata je uspesno
+            obrisana.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('naplate.index')
+                ->with('error', 'Naplata nije uspesno
+            obrisana.');
+        }
     }
 }

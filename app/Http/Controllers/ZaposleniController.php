@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Zaposleni;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-
 
 class ZaposleniController extends Controller
 {
@@ -20,16 +19,16 @@ class ZaposleniController extends Controller
         $search = $request->get('search');
         if ($search == '') {
             $zaposlenis = DB::table('zaposlenis')
-            ->select('zaposlenis.*')
-            ->paginate(5);
-            } else {
+                ->select('zaposlenis.*')
+                ->paginate(5);
+        } else {
             $zaposlenis = DB::table('zaposlenis')
-            ->select('zaposlenis.*')
-            ->where('zaposlenis.ime', 'like', '%'.$search.'%')
-            ->paginate(5);
-            }
-            $stampaj = Input::get('stampaj');
-            return view('zaposleni.index',compact('zaposlenis', 'stampaj'))
+                ->select('zaposlenis.*')
+                ->where('zaposlenis.ime', 'like', '%' . $search . '%')
+                ->paginate(5);
+        }
+        $stampaj = Input::get('stampaj');
+        return view('zaposleni.index', compact('zaposlenis', 'stampaj'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -51,7 +50,24 @@ class ZaposleniController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        request()->validate([
+            'ime' => 'required',
+            'prezime' => 'required',
+            'email' => 'required',
+            'broj_telefona' => 'required',
+        ]);
+        try {
+            Zaposleni::create($request->all());
+            DB::commit();
+            return redirect()->route('zaposleni.index')
+                ->with('success', 'Zaposleni je uspesno sacuvan.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('zaposleni.index')
+                ->with('error', 'Zaposleni nije sacuvan.');
+        }
+
     }
 
     /**
@@ -97,6 +113,18 @@ class ZaposleniController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            Zaposleni::find($id)->delete();
+            DB::commit();
+            return redirect()->route('zaposleni.index')
+                ->with('success', 'Zaposleni je uspesno
+            obrisan.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('zaposleni.index')
+                ->with('error', 'Zaposleni nije uspesno
+            obrisan.');
+        }
     }
 }

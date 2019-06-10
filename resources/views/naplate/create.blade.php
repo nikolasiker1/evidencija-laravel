@@ -5,7 +5,7 @@
     <form class="mx-auto">
         <div class="form-group">
       <label for="employee">Zaposleni:</label>
-      <input type="employee" class="form-control" id="employee" placeholder="Izaberi zaposlenog" name="employee">
+      {!! Form::select('zaposleni', $zaposlenis, null, array('class' => 'form-control')) !!}
     </div>
     <button type="submit" class="btn btn-primary">Potvrdi</button>
     </form>

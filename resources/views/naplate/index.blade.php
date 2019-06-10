@@ -12,24 +12,19 @@
             </tr>
           </thead>
           <tbody>
+              @foreach ($naplatas as $naplata)
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td></td>
+              <th scope="row">{{$naplata -> id}}</th>
+              <td>{{$naplata -> datum}}</td>
+              <td>{{$naplata -> vreme}}</td>
+              <td class="text-center">
+                    {!! Form::open(['method' => 'DELETE','route' =>
+                    ['naplate.destroy', $naplata->id],'style'=>'display:inline']) !!}
+                    {!! Form::submit('Obriši', ['class' => 'btn btn-danger text-center'])
+                    !!}
+              </td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td></td>
-            </tr>
+            @endforeach
           </tbody>
     </table>
 </div>
