@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Naplata;
+use App\Usluga;
 use App\Zaposleni;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-
 class NaplateController extends Controller
 {
+
+    public $usluga = null;
     /**
      * Display a listing of the resource.
      *
@@ -32,11 +36,14 @@ class NaplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $id)
     {
-        $zaposlenis = Zaposleni::pluck('ime');
+        $zaposlenis = Zaposleni::all();
+        $usluga = Usluga::findOrFail($id);
+        $datum = Carbon::now()->format('d-m-Y');
+        $vreme = Carbon::now('Europe/Belgrade')->format('H:i');
 
-        return view('naplate.create', compact('zaposlenis'));
+        return view('naplate.create', compact(['zaposlenis', 'usluga', 'datum', 'vreme', 'request']));
     }
 
     /**
@@ -45,9 +52,25 @@ class NaplateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id_usluge)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            Naplata::create([
+                'id_zaposlenog' => $request -> input('id_zaposlenog'),
+                'id_usluge' => $id_usluge,
+                'datum' => $request -> input('datum'),
+                'vreme' => $request -> input('vreme')
+            ]);
+            DB::commit();
+            return redirect()->route('naplate.index')
+                ->with('success', 'Usluga je uspesno sacuvana.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('naplate.index')
+                ->with('error', 'Usluga nije sacuvana.');
+        }
     }
 
     /**
@@ -95,7 +118,7 @@ class NaplateController extends Controller
     {
         DB::beginTransaction();
         try {
-            Usluga::find($id)->delete();
+            Naplata::find($id)->delete();
             DB::commit();
             return redirect()->route('naplate.index')
                 ->with('success', 'Naplata je uspesno

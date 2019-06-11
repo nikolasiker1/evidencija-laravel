@@ -17,8 +17,8 @@ class CreateNaplatasTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_usluge');
             $table->unsignedBigInteger('id_zaposlenog');
-            $table->date('datum');
-            $table->time('vreme');
+            $table->string('datum');
+            $table->string('vreme');
             $table->foreign('id_usluge')->references('id')->on('uslugas');
             $table->foreign('id_zaposlenog')->references('id')->on('zaposlenis');
             $table->timestamps();
