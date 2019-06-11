@@ -9,8 +9,7 @@
 </div>
 <div class="row">
     <div class="col text-center">
-        <img src="/images/mockuper.png"
-        class="img-fluid" alt="Responsive image">
+        <img src="/images/mockuper.png" class="img-fluid" alt="Responsive image">
     </div>
 </div>
 @endsection

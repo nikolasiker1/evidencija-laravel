@@ -11,14 +11,14 @@
 <input readonly class="row text-center input-group-text" name="vreme" id="vreme" value="{{$vreme}}">
 
 <form class="row mx-auto">
-        <div class="form-group">
+    <div class="form-group">
 
-      <label for="employee">Zaposleni:</label>
-      <select class="form-control input-sm" name="id_zaposlenog" id="id_zaposlenog">
+        <label for="employee">Zaposleni:</label>
+        <select class="form-control input-sm" name="id_zaposlenog" id="id_zaposlenog">
             @foreach($zaposlenis as $zaposleni)
-              <option value="{{$zaposleni->id}}">{{$zaposleni->ime}}     </option>
+            <option value="{{$zaposleni->id}}">{{$zaposleni->ime}} </option>
             @endforeach
-       </select></div>
+        </select></div>
     <button type="submit" class="btn btn-primary">Potvrdi</button>
-    </form>
+</form>
 @endsection
