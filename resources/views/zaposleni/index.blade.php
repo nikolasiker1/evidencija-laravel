@@ -6,8 +6,11 @@
         <a class="btn btn-primary my-2 my-lg-0" href="{{route('zaposleni.create')}}">Dodaj zaposlenog</a>
     </div>
     <div class="col text-right mx-auto">
+        {!! Form::open(['method'=>'GET','route' =>
+        ['zaposleni.index'],'class'=>'navbar-form navbarleft','role'=>'search']) !!}
         <form class="form-inline my-2 my-lg-0 float-right">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pretraga" aria-label="Pretraga">
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Pretraga"
+                aria-label="Pretraga">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pretraga</button>
         </form>
     </div>

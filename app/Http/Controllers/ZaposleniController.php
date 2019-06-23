@@ -16,7 +16,9 @@ class ZaposleniController extends Controller
      */
     public function index(Request $request)
     {
+
         $search = $request->get('search');
+
         if ($search == '') {
             $zaposlenis = DB::table('zaposlenis')
                 ->select('zaposlenis.*')
@@ -27,6 +29,7 @@ class ZaposleniController extends Controller
                 ->where('zaposlenis.ime', 'like', '%' . $search . '%')
                 ->paginate(5);
         }
+
         $stampaj = Input::get('stampaj');
         return view('zaposleni.index', compact('zaposlenis', 'stampaj'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
