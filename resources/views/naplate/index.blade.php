@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-
+<a class="btn btn-primary mt-2" href="{{ action('NaplateController@downloadPDF') }}">Izvezi u PDF</a>
 <div class="row mx-auto mt-3">
     <table class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">

@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use PDF;
 
 class NaplateController extends Controller
 {
@@ -58,10 +58,10 @@ class NaplateController extends Controller
 
         try {
             Naplata::create([
-                'id_zaposlenog' => $request -> input('id_zaposlenog'),
+                'id_zaposlenog' => $request->input('id_zaposlenog'),
                 'id_usluge' => $id_usluge,
-                'datum' => $request -> input('datum'),
-                'vreme' => $request -> input('vreme')
+                'datum' => $request->input('datum'),
+                'vreme' => $request->input('vreme'),
             ]);
             DB::commit();
             return redirect()->route('naplate.index')
@@ -129,5 +129,18 @@ class NaplateController extends Controller
                 ->with('error', 'Naplata nije uspesno
             obrisana.');
         }
+    }
+
+    public function downloadPDF()
+    {
+        error_log('test1');
+
+        $naplate = Naplata::get();
+
+        error_log('test');
+
+        $pdf = PDF::loadView('pdf', compact('naplate'));
+
+        return $pdf->download('checkouts.pdf');
     }
 }

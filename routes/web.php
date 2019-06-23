@@ -10,10 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
+Route::get('/naplate/pdf/', 'NaplateController@downloadPDF');
 
 Route::resource('zaposleni', 'ZaposleniController');
 Route::resource('usluge', 'UslugeController');
-Route::resource('naplate', 'NaplateController', ['except' => 'create']);
+Route::resource('naplate', 'NaplateController', ['except' => ['create', 'downloadPDF']]);
 
 Route::get('naplate/create/{id}', [
     'as' => 'naplate.create',
