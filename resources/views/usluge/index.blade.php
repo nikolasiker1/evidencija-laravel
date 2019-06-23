@@ -27,7 +27,7 @@
                             <a class="btn btn-primary" href="{{route('naplate.create', $usluga->id)}}">Naplati</a>
                         </div>
                         <div class="col text-center" style="color:white">
-                            <a class="btn btn-success">Izmeni</a>
+                            <a class="btn btn-success" href="{{route('usluge.edit', $usluga -> id)}}">Izmeni</a>
                         </div>
                         <div class="col text-center" style="color:white">
                             {!! Form::open(['method' => 'DELETE','route' =>

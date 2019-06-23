@@ -1,4 +1,3 @@
-<h4 class="text-center mt-4">Nova usluga</h4>
 <form class="row m-3">
     <div class="form-group">
         <label for="type">Tip:</label>

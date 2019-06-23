@@ -33,7 +33,7 @@
                 <td class="containter-fluid d-flex justify-content-center">
                     <div class="row d-flex justify-content-center w-100 m-0 no-gutters" style="max-width:300px">
                         <div class="col text-center" style="color:white">
-                            <a class="btn btn-success">Izmeni</a>
+                            <a class="btn btn-success" href="{{route('zaposleni.edit', $zaposleni -> id)}}">Izmeni</a>
                         </div>
                         <div class="col text-center" style="color:white">
                             {!! Form::open(['method' => 'DELETE','route' =>

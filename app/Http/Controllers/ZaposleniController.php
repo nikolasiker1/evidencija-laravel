@@ -90,7 +90,8 @@ class ZaposleniController extends Controller
      */
     public function edit($id)
     {
-        //
+        $zaposleni = Zaposleni::find($id);
+        return view('zaposleni.edit', compact('zaposleni'));
     }
 
     /**
@@ -102,7 +103,24 @@ class ZaposleniController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        request()->validate([
+            'ime' => 'required',
+            'prezime' => 'required',
+            'email' => 'required',
+            'broj_telefona' => 'required',
+        ]);
+        try {
+            Zaposleni::find($id)->update($request->all());
+            DB::commit();
+            return redirect()->route('zaposleni.index')
+                ->with('success', 'Zaposleni je uspesno sacuvan.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('zaposleni.index')
+                ->with('error', 'Zaposleni nije sacuvan.');
+        }
+
     }
 
     /**

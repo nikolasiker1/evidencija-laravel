@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Usluga;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 class UslugeController extends Controller
@@ -21,7 +21,7 @@ class UslugeController extends Controller
             ->paginate(5);
 
         $stampaj = Input::get('stampaj');
-        return view('usluge.index',compact('uslugas', 'stampaj'))
+        return view('usluge.index', compact('uslugas', 'stampaj'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -45,19 +45,19 @@ class UslugeController extends Controller
     {
         DB::beginTransaction();
         request()->validate([
-        'tip' => 'required',
-        'cena' => 'required',
-        'trajanje' => 'required'
+            'tip' => 'required',
+            'cena' => 'required',
+            'trajanje' => 'required',
         ]);
         try {
             Usluga::create($request->all());
-        DB::commit();
+            DB::commit();
             return redirect()->route('usluge.index')
-            ->with('success','Usluga je uspesno sacuvana.');
+                ->with('success', 'Usluga je uspesno sacuvana.');
         } catch (Exception $e) {
-        DB::rollback();
+            DB::rollback();
             return redirect()->route('usluge.index')
-            ->with('error','Usluga nije sacuvana.');
+                ->with('error', 'Usluga nije sacuvana.');
         }
 
     }
@@ -82,7 +82,9 @@ class UslugeController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $usluga = Usluga::find($id);
+        return view('usluge.edit', compact('usluga'));
     }
 
     /**
@@ -94,7 +96,23 @@ class UslugeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        request()->validate([
+            'tip' => 'required',
+            'cena' => 'required',
+            'trajanje' => 'required',
+        ]);
+        try {
+            Usluga::find($id)->update($request->all());
+            DB::commit();
+            return redirect()->route('usluge.index')
+                ->with('success', 'Usluga je uspesno sacuvana.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->route('usluge.index')
+                ->with('error', 'Usluga nije sacuvana.');
+        }
+
     }
 
     /**
